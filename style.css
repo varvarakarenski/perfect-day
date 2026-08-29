@@ -547,18 +547,26 @@ h1 {
     box-shadow: 0 6px 16px rgba(165, 116, 95, 0.3);
 }
 
+.overlay-panel h2 {
+    margin: 0;
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #1f2937;
+}
+
 .add-listing-form {
     display: flex;
     flex-direction: column;
-    gap: 0.75rem;
+    gap: 1rem;
 }
 
 .add-listing-form label {
     display: flex;
     flex-direction: column;
-    gap: 0.25rem;
+    gap: 0.35rem;
     font-size: 0.85rem;
-    color: #1f2937;
+    font-weight: 500;
+    color: #374151;
 }
 
 .add-listing-form input,
@@ -566,25 +574,45 @@ h1 {
 .add-listing-form textarea {
     width: 100%;
     box-sizing: border-box;
-    padding: 0.5rem;
+    padding: 0.6rem 0.7rem;
     border: 1px solid #e5e7eb;
     border-radius: 4px;
     font-family: 'Lexend', sans-serif;
     font-size: 0.9rem;
+    color: #1f2937;
+    transition: border-color 0.18s ease, box-shadow 0.18s ease;
+}
+
+.add-listing-form textarea {
+    min-height: 80px;
+    resize: vertical;
+}
+
+.add-listing-form input:focus,
+.add-listing-form select:focus,
+.add-listing-form textarea:focus {
+    outline: none;
+    border-color: var(--terracotta);
+    box-shadow: 0 0 0 3px rgba(210, 155, 131, 0.18);
 }
 
 .tag-picker {
     display: flex;
     flex-direction: column;
-    gap: 0.4rem;
+    gap: 0.5rem;
     font-size: 0.85rem;
     color: #1f2937;
+}
+
+.tag-picker-label {
+    font-weight: 500;
+    color: #374151;
 }
 
 .tag-picker-options {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.4rem;
+    gap: 0.5rem;
 }
 
 .tag-picker-option {
@@ -634,14 +662,19 @@ h1 {
 }
 
 .add-listing-form button[type="submit"] {
-    align-self: flex-start;
+    align-self: center;
+    margin-top: 0.25rem;
     border: none;
     border-radius: 3px;
-    height: 36px;
-    padding: 0 14px;
+    height: 40px;
+    min-width: 160px;
     color: white;
     background-color: #d29b83;
     cursor: pointer;
+    font-family: 'Lexend', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 500;
+    box-shadow: 0 4px 12px rgba(210, 155, 131, 0.25);
     transition: transform 0.18s ease, box-shadow 0.18s ease, background-color 0.18s ease;
 }
 
@@ -792,7 +825,7 @@ h1 {
 }
 
 .review-panel-form button[type="submit"] {
-    align-self: flex-start;
+    align-self: center;
     border: none;
     border-radius: 3px;
     height: 36px;
@@ -800,6 +833,8 @@ h1 {
     color: white;
     background-color: #d29b83;
     cursor: pointer;
+    font-family: 'Lexend', sans-serif;
+    font-size: 0.9rem;
     transition: transform 0.18s ease, box-shadow 0.18s ease, background-color 0.18s ease;
 }
 
