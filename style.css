@@ -217,7 +217,7 @@ h1 {
     align-items: center;
     font-size: 0.75rem;
     padding: 3px 3px;
-    border-radius: 3px;
+    border-radius: 100px;
     background-color: #fbeee9;
     color: #a5745f;
 }

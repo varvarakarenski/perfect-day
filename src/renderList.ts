@@ -61,7 +61,6 @@ function renderCard<T extends Listing>(
   const reviewBtn = el("button", "listing-review-btn", "Write a review");
   reviewBtn.type = "button";
   reviewBtn.addEventListener("click", () => onReview(item));
-  card.appendChild(reviewBtn);
 
   return card;
 }
