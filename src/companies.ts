@@ -7,7 +7,9 @@ import { initTagPicker, uniqueTags } from "./tagPicker";
 import "./menubar";
 import type { Company } from "./types";
 import { auth } from "./firebase";
+import { onAuthStateChanged } from "@firebase/auth";
 
+const addSubmit = document.querySelector<HTMLButtonElement>(".add-listing-submit");
 const listContainer = document.querySelector<HTMLDivElement>(".perfect-companies");
 const searchInput = document.querySelector<HTMLInputElement>(".search-input");
 const addToggle = document.querySelector<HTMLButtonElement>(".add-listing-toggle");
@@ -17,6 +19,10 @@ const tagPickerEl = document.querySelector<HTMLDivElement>(".tag-picker");
 
 if (addOverlay) bindOverlayDismiss(addOverlay);
 const tagPicker = tagPickerEl ? initTagPicker(tagPickerEl, uniqueTags(mockCompanies)) : null;
+
+onAuthStateChanged(auth, (user) => {
+  if (addSubmit) addSubmit.textContent = user ? "Add company" : "Sign in to add a company";
+});
 
 if (listContainer) {
   let companies: Company[] = [...mockCompanies];

@@ -7,6 +7,7 @@ import { initTagPicker, uniqueTags } from "./tagPicker";
 import "./menubar";
 import type { Team } from "./types";
 import { auth } from "./firebase";
+import { onAuthStateChanged } from "@firebase/auth";
 
 const listContainer = document.querySelector<HTMLDivElement>(".perfect-clubs-and-teams");
 const searchInput = document.querySelector<HTMLInputElement>(".search-input");
@@ -14,9 +15,14 @@ const addToggle = document.querySelector<HTMLButtonElement>(".add-listing-toggle
 const addOverlay = document.querySelector<HTMLDivElement>(".add-listing-overlay");
 const addForm = document.querySelector<HTMLFormElement>(".add-listing-form");
 const tagPickerEl = document.querySelector<HTMLDivElement>(".tag-picker");
+const addSubmit = document.querySelector<HTMLButtonElement>(".add-listing-submit");
 
 if (addOverlay) bindOverlayDismiss(addOverlay);
 const tagPicker = tagPickerEl ? initTagPicker(tagPickerEl, uniqueTags(mockTeams)) : null;
+
+onAuthStateChanged(auth, (user) => {
+  if (addSubmit) addSubmit.textContent = user ? "Add team" : "Sign in to add a team";
+});
 
 if (listContainer) {
   let teams: Team[] = [...mockTeams];
