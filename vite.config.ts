@@ -11,6 +11,7 @@ export default defineConfig({
         companies: resolve(root, "companies.html"),
         labs: resolve(root, "labs.html"),
         clubsAndTeams: resolve(root, "clubs-and-teams.html"),
+        detail: resolve(root, "detail.html"),
       },
     },
   },

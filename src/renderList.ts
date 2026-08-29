@@ -1,4 +1,6 @@
 import type { Listing } from "./types";
+import { ratingStats } from "./reviews";
+import { logoFor } from "./logo";
 
 function el<K extends keyof HTMLElementTagNameMap>(
   tag: K,
@@ -13,12 +15,20 @@ function el<K extends keyof HTMLElementTagNameMap>(
 
 function renderCard<T extends Listing>(
   item: T,
+  detailType: string,
   subtitle: (item: T) => string,
   onReview: (item: T) => void,
 ): HTMLElement {
   const card = el("div", "listing-card");
 
-  card.appendChild(el("h3", "listing-name", item.name));
+  const name = el("h3", "listing-name");
+  const nameLink = document.createElement("a");
+  nameLink.className = "listing-name-link";
+  nameLink.href = `detail.html?type=${detailType}&id=${encodeURIComponent(item.id)}`;
+  nameLink.textContent = item.name;
+  name.appendChild(nameLink);
+  card.appendChild(name);
+
   card.appendChild(el("p", "listing-subtitle", `${subtitle(item)} · ${item.location}`));
   card.appendChild(el("p", "listing-description", item.description));
 
@@ -28,11 +38,10 @@ function renderCard<T extends Listing>(
   }
   card.appendChild(tagList);
 
-  const rounded = Math.round(item.averageRating);
+  const { averageRating, reviewCount } = ratingStats(item.id);
+  const rounded = Math.round(averageRating);
   const stars = "★".repeat(rounded) + "☆".repeat(5 - rounded);
-  card.appendChild(
-    el("p", "listing-rating", `${stars} ${item.averageRating.toFixed(1)} (${item.reviewCount} reviews)`),
-  );
+  card.appendChild(el("p", "listing-rating", `${stars} ${averageRating.toFixed(1)} (${reviewCount} reviews)`));
 
   const reviewBtn = el("button", "listing-review-btn", "Write a review");
   reviewBtn.type = "button";
@@ -45,6 +54,7 @@ function renderCard<T extends Listing>(
 export function renderList<T extends Listing>(
   container: HTMLElement,
   items: T[],
+  detailType: string,
   subtitle: (item: T) => string,
   onReview: (item: T) => void,
 ): void {
@@ -57,6 +67,6 @@ export function renderList<T extends Listing>(
   }
 
   for (const item of items) {
-    container.appendChild(renderCard(item, subtitle, onReview));
+    container.appendChild(renderCard(item, detailType, subtitle, onReview));
   }
 }

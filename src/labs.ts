@@ -1,55 +1,60 @@
 import { mockLabs } from "./data/labs";
 import { renderList } from "./renderList";
-import { mountSearchBar } from "./searchBar";
 import { filterListings } from "./search";
-import { mountAddListingForm } from "./forms/addListingForm";
-import { openReviewModal } from "./reviewModal";
-import { applyNewRating } from "./ratings";
+import { openReviewPanel } from "./reviewPanel";
 import { appendAddition, loadAdditions } from "./storage";
+import { bindOverlayDismiss } from "./overlay";
 import type { Lab } from "./types";
 
 const listContainer = document.querySelector<HTMLDivElement>(".perfect-labs");
-const searchContainer = document.querySelector<HTMLDivElement>(".labs-search");
-const formContainer = document.querySelector<HTMLDivElement>(".labs-add-form");
+const searchInput = document.querySelector<HTMLInputElement>(".search-input");
+const addToggle = document.querySelector<HTMLButtonElement>(".add-listing-toggle");
+const addOverlay = document.querySelector<HTMLDivElement>(".add-listing-overlay");
+const addForm = document.querySelector<HTMLFormElement>(".add-listing-form");
+
+if (addOverlay) bindOverlayDismiss(addOverlay);
 
 if (listContainer) {
   const labs: Lab[] = [...mockLabs, ...loadAdditions<Lab>("labs")];
   let query = "";
 
   function render(): void {
-    renderList(listContainer!, filterListings(labs, query), (lab) => lab.institution, (lab) => {
-      openReviewModal(lab, (review) => {
-        applyNewRating(lab, review.rating);
-        render();
-      });
+    renderList(listContainer!, filterListings(labs, query), "lab", (lab) => lab.institution, (lab) => {
+      openReviewPanel(lab, () => render());
     });
   }
 
-  if (searchContainer) {
-    mountSearchBar(searchContainer, "Search labs by name, description, or tag...", (value) => {
-      query = value;
-      render();
-    });
-  }
+  searchInput?.addEventListener("input", () => {
+    query = searchInput.value;
+    render();
+  });
 
-  if (formContainer) {
-    mountAddListingForm<{ institution: string }>(formContainer, {
-      noun: "lab",
-      extraFields: [{ key: "institution", label: "Institution" }],
-      onAdd: (base, extra) => {
-        const lab: Lab = {
-          ...base,
-          id: crypto.randomUUID(),
-          institution: extra.institution,
-          averageRating: 0,
-          reviewCount: 0,
-        };
-        appendAddition("labs", lab);
-        labs.push(lab);
-        render();
-      },
-    });
-  }
+  addToggle?.addEventListener("click", () => {
+    if (addOverlay) addOverlay.hidden = false;
+  });
+
+  addForm?.addEventListener("submit", (event) => {
+    event.preventDefault();
+    const data = new FormData(addForm);
+
+    const lab: Lab = {
+      id: crypto.randomUUID(),
+      name: String(data.get("name") ?? "").trim(),
+      description: String(data.get("description") ?? "").trim(),
+      location: String(data.get("location") ?? "").trim(),
+      tags: String(data.get("tags") ?? "")
+        .split(",")
+        .map((tag) => tag.trim())
+        .filter(Boolean),
+      institution: String(data.get("institution") ?? "").trim(),
+    };
+
+    appendAddition("labs", lab);
+    labs.push(lab);
+    addForm.reset();
+    if (addOverlay) addOverlay.hidden = true;
+    render();
+  });
 
   render();
 }

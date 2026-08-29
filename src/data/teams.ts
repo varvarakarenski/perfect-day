@@ -9,8 +9,6 @@ export const mockTeams: Team[] = [
     kind: "club",
     affiliation: "Purdue University",
     tags: ["welcoming to freshmen", "industry networking"],
-    averageRating: 4.8,
-    reviewCount: 24,
   },
   {
     id: "t2",
@@ -20,8 +18,6 @@ export const mockTeams: Team[] = [
     kind: "team",
     affiliation: "Detroit Public Schools",
     tags: ["competitive", "high time commitment"],
-    averageRating: 4.2,
-    reviewCount: 11,
   },
   {
     id: "t3",
@@ -31,8 +27,6 @@ export const mockTeams: Team[] = [
     kind: "club",
     affiliation: "Lane Tech High School",
     tags: ["beginner-friendly", "free snacks"],
-    averageRating: 4.9,
-    reviewCount: 17,
   },
   {
     id: "t4",
@@ -42,7 +36,5 @@ export const mockTeams: Team[] = [
     kind: "team",
     affiliation: "University of Michigan",
     tags: ["intense during race season", "hands-on"],
-    averageRating: 3.7,
-    reviewCount: 9,
   },
 ];

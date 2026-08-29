@@ -1,55 +1,60 @@
 import { mockCompanies } from "./data/companies";
 import { renderList } from "./renderList";
-import { mountSearchBar } from "./searchBar";
 import { filterListings } from "./search";
-import { mountAddListingForm } from "./forms/addListingForm";
-import { openReviewModal } from "./reviewModal";
-import { applyNewRating } from "./ratings";
+import { openReviewPanel } from "./reviewPanel";
 import { appendAddition, loadAdditions } from "./storage";
+import { bindOverlayDismiss } from "./overlay";
 import type { Company } from "./types";
 
 const listContainer = document.querySelector<HTMLDivElement>(".perfect-companies");
-const searchContainer = document.querySelector<HTMLDivElement>(".companies-search");
-const formContainer = document.querySelector<HTMLDivElement>(".companies-add-form");
+const searchInput = document.querySelector<HTMLInputElement>(".search-input");
+const addToggle = document.querySelector<HTMLButtonElement>(".add-listing-toggle");
+const addOverlay = document.querySelector<HTMLDivElement>(".add-listing-overlay");
+const addForm = document.querySelector<HTMLFormElement>(".add-listing-form");
+
+if (addOverlay) bindOverlayDismiss(addOverlay);
 
 if (listContainer) {
   const companies: Company[] = [...mockCompanies, ...loadAdditions<Company>("companies")];
   let query = "";
 
   function render(): void {
-    renderList(listContainer!, filterListings(companies, query), (company) => company.industry, (company) => {
-      openReviewModal(company, (review) => {
-        applyNewRating(company, review.rating);
-        render();
-      });
+    renderList(listContainer!, filterListings(companies, query), "company", (company) => company.industry, (company) => {
+      openReviewPanel(company, () => render());
     });
   }
 
-  if (searchContainer) {
-    mountSearchBar(searchContainer, "Search companies by name, description, or tag...", (value) => {
-      query = value;
-      render();
-    });
-  }
+  searchInput?.addEventListener("input", () => {
+    query = searchInput.value;
+    render();
+  });
 
-  if (formContainer) {
-    mountAddListingForm<{ industry: string }>(formContainer, {
-      noun: "company",
-      extraFields: [{ key: "industry", label: "Industry" }],
-      onAdd: (base, extra) => {
-        const company: Company = {
-          ...base,
-          id: crypto.randomUUID(),
-          industry: extra.industry,
-          averageRating: 0,
-          reviewCount: 0,
-        };
-        appendAddition("companies", company);
-        companies.push(company);
-        render();
-      },
-    });
-  }
+  addToggle?.addEventListener("click", () => {
+    if (addOverlay) addOverlay.hidden = false;
+  });
+
+  addForm?.addEventListener("submit", (event) => {
+    event.preventDefault();
+    const data = new FormData(addForm);
+
+    const company: Company = {
+      id: crypto.randomUUID(),
+      name: String(data.get("name") ?? "").trim(),
+      description: String(data.get("description") ?? "").trim(),
+      location: String(data.get("location") ?? "").trim(),
+      tags: String(data.get("tags") ?? "")
+        .split(",")
+        .map((tag) => tag.trim())
+        .filter(Boolean),
+      industry: String(data.get("industry") ?? "").trim(),
+    };
+
+    appendAddition("companies", company);
+    companies.push(company);
+    addForm.reset();
+    if (addOverlay) addOverlay.hidden = true;
+    render();
+  });
 
   render();
 }

@@ -4,8 +4,7 @@ export interface Listing {
   description: string;
   location: string;
   tags: string[];
-  averageRating: number;
-  reviewCount: number;
+  logoUrl?: string;
 }
 
 export interface Company extends Listing {

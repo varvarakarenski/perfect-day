@@ -9,27 +9,66 @@
 
     <body>
         <div class="menubar">
-            <span><h2>PerfectDay</h2></span>
+            <span><h2><a href="index.html">PerfectDay</a></h2></span>
             <a href="companies.html">Companies</a>
             <a href="clubs-and-teams.html">Clubs & Teams</a>
             <a href="labs.html">Labs</a>
             <link rel="preconnect" href="https://fonts.googleapis.com">
             <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
             <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;700;800&display=swap" rel="stylesheet">
-            <!--Var, ADD PROFILE PICTURE ON THE RIGHT !!!-->  
+            <!--Var, ADD PROFILE PICTURE ON THE RIGHT !!!-->
         </div>
 
-        <div class="companies-search"></div>
-        <div class="companies-add-form"></div>
+        <div class="search-bar">
+            <input type="search" class="search-input" placeholder="Search companies by name, description, or tag...">
+            <button type="button" class="add-listing-toggle">+ Add a company</button>
+        </div>
 
         <div class="perfect-companies">
 
         </div>
 
+        <div class="add-listing-overlay overlay-backdrop" hidden>
+            <div class="overlay-panel">
+                <button type="button" class="overlay-close">✕</button>
+                <h2>Add a company</h2>
+                <form class="add-listing-form">
+                    <label>Name <input name="name" required></label>
+                    <label>Description <textarea name="description" required></textarea></label>
+                    <label>Location <input name="location" required></label>
+                    <label>Tags <input name="tags" placeholder="comma-separated"></label>
+                    <label>Industry <input name="industry" required></label>
+                    <button type="submit">Add company</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="review-overlay overlay-backdrop" hidden>
+            <div class="overlay-panel">
+                <button type="button" class="overlay-close">✕</button>
+                <h2 class="review-panel-heading"></h2>
+                <div class="review-panel-reviews"></div>
+                <form class="review-panel-form">
+                    <label>Your name <input name="reviewerName" required></label>
+                    <label>Rating
+                        <select name="rating" required>
+                            <option value="5">5 - Excellent</option>
+                            <option value="4">4 - Good</option>
+                            <option value="3">3 - Average</option>
+                            <option value="2">2 - Below average</option>
+                            <option value="1">1 - Poor</option>
+                        </select>
+                    </label>
+                    <label>Review <textarea name="text" required></textarea></label>
+                    <button type="submit">Submit review</button>
+                </form>
+            </div>
+        </div>
+
         <script type="module" src="/src/companies.ts"></script>
 
         <div class="footer">
-            <a href="link">Filler Link</a>
+            <a href="about.html">About Us</a>
             <a href="link" target="_blank" rel="noopener">Filler Link</a>
             <a href="link">Filler Link</a>
         </div>

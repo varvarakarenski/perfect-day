@@ -8,8 +8,6 @@ export const mockCompanies: Company[] = [
     location: "Austin, TX",
     industry: "Hardware / Robotics",
     tags: ["parental leave", "mentorship program", "flexible hours"],
-    averageRating: 4.4,
-    reviewCount: 12,
   },
   {
     id: "c2",
@@ -18,8 +16,6 @@ export const mockCompanies: Company[] = [
     location: "Remote",
     industry: "Software / Data",
     tags: ["remote-friendly", "women in leadership"],
-    averageRating: 3.8,
-    reviewCount: 7,
   },
   {
     id: "c3",
@@ -28,8 +24,6 @@ export const mockCompanies: Company[] = [
     location: "Cambridge, MA",
     industry: "Biotech",
     tags: ["strong onboarding", "pay transparency"],
-    averageRating: 4.1,
-    reviewCount: 19,
   },
   {
     id: "c4",
@@ -38,8 +32,6 @@ export const mockCompanies: Company[] = [
     location: "Seattle, WA",
     industry: "Aerospace",
     tags: ["long hours", "clearance required", "great benefits"],
-    averageRating: 3.2,
-    reviewCount: 5,
   },
   {
     id: "c5",
@@ -48,8 +40,6 @@ export const mockCompanies: Company[] = [
     location: "San Jose, CA",
     industry: "Hardware / Semiconductors",
     tags: ["ERG for women in tech", "on-site gym"],
-    averageRating: 4.6,
-    reviewCount: 31,
   },
   {
     id: "c6",
@@ -58,7 +48,5 @@ export const mockCompanies: Company[] = [
     location: "Remote",
     industry: "Healthtech",
     tags: ["4-day workweek", "unlimited PTO"],
-    averageRating: 4.0,
-    reviewCount: 8,
   },
 ];
