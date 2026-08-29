@@ -1,0 +1,26 @@
+{
+  "name": "perfect-day",
+  "version": "1.0.0",
+  "description": "Rate-my-professor style reviews for women in STEAM companies, labs, and teams",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/varvarakarenski/perfect-day.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/varvarakarenski/perfect-day/issues"
+  },
+  "homepage": "https://github.com/varvarakarenski/perfect-day#readme",
+  "devDependencies": {
+    "@types/node": "^26.4.0",
+    "typescript": "^7.0.2",
+    "vite": "^8.2.2"
+  }
+}

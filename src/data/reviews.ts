@@ -1,0 +1,60 @@
+import type { Review } from "../types";
+
+export const mockReviews: Review[] = [
+  {
+    id: "r1",
+    listingId: "c1",
+    reviewerName: "Priya S.",
+    rating: 5,
+    text: "Manager actively pushed for me to speak at conferences. Felt supported from day one.",
+    createdAt: "2026-02-14T00:00:00.000Z",
+  },
+  {
+    id: "r2",
+    listingId: "c1",
+    reviewerName: "Jamie L.",
+    rating: 4,
+    text: "Good culture overall, though the on-call rotation could be more balanced.",
+    createdAt: "2026-03-02T00:00:00.000Z",
+  },
+  {
+    id: "r3",
+    listingId: "c5",
+    reviewerName: "Ana R.",
+    rating: 5,
+    text: "The women in tech ERG here is genuinely active, not just for show.",
+    createdAt: "2026-01-20T00:00:00.000Z",
+  },
+  {
+    id: "r4",
+    listingId: "l1",
+    reviewerName: "Meredith K.",
+    rating: 5,
+    text: "PI is one of the best mentors I've had. Always fought for our funding.",
+    createdAt: "2026-04-11T00:00:00.000Z",
+  },
+  {
+    id: "r5",
+    listingId: "l4",
+    reviewerName: "Devon T.",
+    rating: 2,
+    text: "Very competitive environment, some senior students weren't welcoming.",
+    createdAt: "2026-05-06T00:00:00.000Z",
+  },
+  {
+    id: "r6",
+    listingId: "t1",
+    reviewerName: "Sam O.",
+    rating: 5,
+    text: "This club is why I stayed in engineering. Incredible community.",
+    createdAt: "2026-02-28T00:00:00.000Z",
+  },
+  {
+    id: "r7",
+    listingId: "t3",
+    reviewerName: "Grace H.",
+    rating: 5,
+    text: "So welcoming for beginners, no prior coding experience needed.",
+    createdAt: "2026-03-19T00:00:00.000Z",
+  },
+];
