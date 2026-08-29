@@ -4,7 +4,6 @@ import { filterListings } from "./search";
 import { appendAddition, loadAdditions } from "./storage";
 import { bindOverlayDismiss } from "./overlay";
 import { initTagPicker, uniqueTags } from "./tagPicker";
-import { gateWithAuth } from "./authGate";
 import "./menubar";
 import type { Company } from "./types";
 import { auth } from "./firebase";
@@ -42,12 +41,6 @@ if (listContainer) {
     query = searchInput.value;
     render();
   });
-
-  if (addToggle) {
-    gateWithAuth(addToggle, () => {
-      if (addOverlay) addOverlay.hidden = false;
-    });
-  }
 
   addToggle?.addEventListener("click", () => {
     if (addOverlay) addOverlay.hidden = false;
