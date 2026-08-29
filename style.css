@@ -213,6 +213,8 @@ h1 {
 }
 
 .listing-tag {
+    display: inline-flex;
+    align-items: center;
     font-size: 0.75rem;
     padding: 3px 3px;
     border-radius: 999px;
