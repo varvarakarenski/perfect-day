@@ -5,6 +5,7 @@ import { appendAddition, loadAdditions } from "./storage";
 import { bindOverlayDismiss } from "./overlay";
 import "./menubar";
 import type { Team } from "./types";
+import { auth } from "./firebase";
 
 const listContainer = document.querySelector<HTMLDivElement>(".perfect-clubs-and-teams");
 const searchInput = document.querySelector<HTMLInputElement>(".search-input");
@@ -38,6 +39,12 @@ if (listContainer) {
 
   addForm?.addEventListener("submit", async (event) => {
     event.preventDefault();
+
+    if (!auth.currentUser) {
+          location.href = "login.html";
+          return;
+    }
+
     const data = new FormData(addForm);
 
     const team: Team = {

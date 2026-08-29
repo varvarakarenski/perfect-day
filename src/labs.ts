@@ -47,6 +47,12 @@ if (listContainer) {
 
   addForm?.addEventListener("submit", async (event) => {
     event.preventDefault();
+
+    if (!auth.currentUser) {
+      location.href = "login.html";
+      return;
+    }
+
     const data = new FormData(addForm);
 
     const lab: Lab = {

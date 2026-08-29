@@ -23,6 +23,11 @@ form?.addEventListener("submit", async (event) => {
   event.preventDefault();
   if (!currentListing) return;
 
+  if (!auth.currentUser) {
+    location.href = "login.html";
+    return;
+  }
+
   const data = new FormData(form);
   if (!data.get("rating")) return;
 
