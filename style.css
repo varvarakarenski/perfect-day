@@ -351,6 +351,10 @@ h1 {
     font-family: Lexend;
 }
 
+.no-font {
+    font-family: initial;
+}
+
 .listing-grid {
     display: flex;
     flex-direction: column;
