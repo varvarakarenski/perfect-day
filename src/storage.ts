@@ -7,5 +7,6 @@ export async function loadAdditions<T>(key: string): Promise<T[]> {
 }
 
 export async function appendAddition<T extends { id: string }>(key: string, item: T): Promise<void> {
-  await setDoc(doc(db, key, item.id), item);
+  const sanitized = Object.fromEntries(Object.entries(item).filter(([, value]) => value !== undefined));
+  await setDoc(doc(db, key, item.id), sanitized);
 }
