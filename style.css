@@ -146,6 +146,7 @@ h1 {
 .listing-card {
     display: flex;
     flex-direction: row;
+    width: 100%;
     align-content: space-between;
     gap: 0.5rem;
     padding: 1.25rem;
