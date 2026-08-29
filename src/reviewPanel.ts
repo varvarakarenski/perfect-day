@@ -3,6 +3,7 @@ import type { Listing, Review } from "./types";
 import { appendAddition } from "./storage";
 import { bindOverlayDismiss } from "./overlay";
 import { bindStarRating } from "./starRating";
+import { gateWithAuth } from "./authGate";
 import { auth } from "./firebase";
 
 const overlay = document.querySelector<HTMLDivElement>(".review-overlay");
@@ -18,6 +19,10 @@ if (form) bindStarRating(form);
 onAuthStateChanged(auth, (user) => {
   if (submitBtn) submitBtn.textContent = user ? "Submit review" : "Sign in to submit a review";
 });
+
+if (submitBtn) {
+  gateWithAuth(submitBtn, () => form?.requestSubmit());
+}
 
 form?.addEventListener("submit", async (event) => {
   event.preventDefault();

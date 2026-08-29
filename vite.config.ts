@@ -13,7 +13,6 @@ export default defineConfig(({ command }) => ({
         labs: resolve(root, "labs.html"),
         clubsAndTeams: resolve(root, "clubs-and-teams.html"),
         detail: resolve(root, "detail.html"),
-        about: resolve(root, "about.html"),
         login: resolve(root, "login.html"),
       },
     },
