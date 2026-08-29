@@ -14,6 +14,22 @@
     gap: 1rem;
 }
 
+.menubar::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    height: 10px;
+    background-image:
+        radial-gradient(circle 4px at 10px 5px, #D29B83 99%, transparent 100%),
+        radial-gradient(circle 4px at 30px 5px, rgb(218, 226, 195) 99%, transparent 100%),
+        radial-gradient(circle 4px at 50px 5px, #97d283 99%, transparent 100%),
+        radial-gradient(circle 4px at 70px 5px, #83bdd2 99%, transparent 100%);
+    background-size: 80px 10px;
+    background-repeat: repeat-x;
+}
+
 .menubar a{
     color: #1f2937;
     text-decoration: none;
@@ -95,6 +111,22 @@ h1 {
 
 .footer a:hover {
     color: #d1495b;
+}
+
+.footer::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    height: 10px;
+    background-image:
+        radial-gradient(circle 4px at 10px 5px, #D29B83 99%, transparent 100%),
+        radial-gradient(circle 4px at 30px 5px, rgb(218, 226, 195) 99%, transparent 100%),
+        radial-gradient(circle 4px at 50px 5px, #97d283 99%, transparent 100%),
+        radial-gradient(circle 4px at 70px 5px, #83bdd2 99%, transparent 100%);
+    background-size: 80px 10px;
+    background-repeat: repeat-x;
 }
 
 h1 {
@@ -530,7 +562,7 @@ h1 {
 }
 
 .detail-rating {
-    color: #eadf46;
+    color: #D29B83;
     font-size: 1.1rem;
 }
 
