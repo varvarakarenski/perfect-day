@@ -1,6 +1,7 @@
 import type { Listing, Review } from "./types";
 import { appendAddition } from "./storage";
 import { bindOverlayDismiss } from "./overlay";
+import { bindStarRating } from "./starRating";
 import { reviewsFor, renderReviewList } from "./reviews";
 
 const overlay = document.querySelector<HTMLDivElement>(".review-overlay");
@@ -12,12 +13,15 @@ let currentListing: Listing | null = null;
 let currentOnSubmitted: ((review: Review) => void) | null = null;
 
 if (overlay) bindOverlayDismiss(overlay);
+if (form) bindStarRating(form);
 
 form?.addEventListener("submit", async (event) => {
   event.preventDefault();
   if (!currentListing) return;
 
   const data = new FormData(form);
+  if (!data.get("rating")) return;
+
   const review: Review = {
     id: crypto.randomUUID(),
     listingId: currentListing.id,
@@ -29,6 +33,7 @@ form?.addEventListener("submit", async (event) => {
 
   await appendAddition("reviews", review);
   form.reset();
+  form.querySelectorAll(".star.filled").forEach((star) => star.classList.remove("filled"));
   if (reviewsList) renderReviewList(reviewsList, await reviewsFor(currentListing.id));
   currentOnSubmitted?.(review);
 });

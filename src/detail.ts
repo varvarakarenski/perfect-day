@@ -3,6 +3,7 @@ import { mockLabs } from "./data/labs";
 import { mockTeams } from "./data/teams";
 import { loadAdditions, appendAddition } from "./storage";
 import { ratingStats, reviewsFor, renderReviewList } from "./reviews";
+import { bindStarRating } from "./starRating";
 import { logoFor } from "./logo";
 import type { Company, Lab, Team, Listing, Review } from "./types";
 
@@ -50,6 +51,8 @@ backLink?.addEventListener("click", (event) => {
   history.back();
 });
 
+if (formEl) bindStarRating(formEl);
+
 async function main(): Promise<void> {
   const listing = type && id ? await findListing(type, id) : undefined;
 
@@ -93,6 +96,8 @@ async function main(): Promise<void> {
     if (!formEl) return;
 
     const data = new FormData(formEl);
+    if (!data.get("rating")) return;
+
     const review: Review = {
       id: crypto.randomUUID(),
       listingId: listing.id,
@@ -104,6 +109,7 @@ async function main(): Promise<void> {
 
     await appendAddition("reviews", review);
     formEl.reset();
+    formEl.querySelectorAll(".star.filled").forEach((star) => star.classList.remove("filled"));
     if (reviewsEl) renderReviewList(reviewsEl, await reviewsFor(listing.id));
     await renderRating();
   });
