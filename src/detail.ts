@@ -5,6 +5,7 @@ import { loadAdditions } from "./storage";
 import { ratingStats, reviewsFor, renderReviewList } from "./reviews";
 import { openReviewPanel } from "./reviewPanel";
 import { logoFor } from "./logo";
+import "./menubar";
 import type { Company, Lab, Team, Listing } from "./types";
 
 type DetailType = "company" | "lab" | "team";

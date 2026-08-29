@@ -3,6 +3,7 @@ import { renderList } from "./renderList";
 import { filterListings } from "./search";
 import { appendAddition, loadAdditions } from "./storage";
 import { bindOverlayDismiss } from "./overlay";
+import "./menubar";
 import type { Team } from "./types";
 
 const listContainer = document.querySelector<HTMLDivElement>(".perfect-clubs-and-teams");

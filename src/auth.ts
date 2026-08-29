@@ -6,6 +6,7 @@ import {
   signInWithPopup,
 } from "firebase/auth";
 import { auth } from "./firebase";
+import "./menubar";
 
 type Mode = "login" | "signup";
 
