@@ -146,6 +146,7 @@ h1 {
 .listing-card {
     display: flex;
     flex-direction: row;
+    align-content: space-around;
     gap: 0.5rem;
     padding: 1.25rem;
     border-radius: 3px;
@@ -212,7 +213,7 @@ h1 {
 
 .listing-tag {
     font-size: 0.75rem;
-    padding: 3px 8px;
+    padding: 3px 3px;
     border-radius: 999px;
     background-color: #fbeee9;
     color: #a5745f;
