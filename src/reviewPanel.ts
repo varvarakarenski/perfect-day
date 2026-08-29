@@ -13,7 +13,7 @@ let currentOnSubmitted: ((review: Review) => void) | null = null;
 
 if (overlay) bindOverlayDismiss(overlay);
 
-form?.addEventListener("submit", (event) => {
+form?.addEventListener("submit", async (event) => {
   event.preventDefault();
   if (!currentListing) return;
 
@@ -27,9 +27,9 @@ form?.addEventListener("submit", (event) => {
     createdAt: new Date().toISOString(),
   };
 
-  appendAddition("reviews", review);
+  await appendAddition("reviews", review);
   form.reset();
-  if (reviewsList) renderReviewList(reviewsList, reviewsFor(currentListing.id));
+  if (reviewsList) renderReviewList(reviewsList, await reviewsFor(currentListing.id));
   currentOnSubmitted?.(review);
 });
 
@@ -38,6 +38,8 @@ export function openReviewPanel(listing: Listing, onSubmitted: (review: Review) 
   currentListing = listing;
   currentOnSubmitted = onSubmitted;
   heading.textContent = listing.name;
-  renderReviewList(reviewsList, reviewsFor(listing.id));
   overlay.hidden = false;
+  reviewsFor(listing.id).then((reviews) => {
+    if (reviewsList) renderReviewList(reviewsList, reviews);
+  });
 }

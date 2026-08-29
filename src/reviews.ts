@@ -2,13 +2,13 @@ import type { Review } from "./types";
 import { mockReviews } from "./data/reviews";
 import { loadAdditions } from "./storage";
 
-export function reviewsFor(listingId: string): Review[] {
-  const persisted = loadAdditions<Review>("reviews");
+export async function reviewsFor(listingId: string): Promise<Review[]> {
+  const persisted = await loadAdditions<Review>("reviews");
   return [...mockReviews, ...persisted].filter((review) => review.listingId === listingId);
 }
 
-export function ratingStats(listingId: string): { averageRating: number; reviewCount: number } {
-  const reviews = reviewsFor(listingId);
+export async function ratingStats(listingId: string): Promise<{ averageRating: number; reviewCount: number }> {
+  const reviews = await reviewsFor(listingId);
   if (reviews.length === 0) return { averageRating: 0, reviewCount: 0 };
   const sum = reviews.reduce((total, review) => total + review.rating, 0);
   return { averageRating: sum / reviews.length, reviewCount: reviews.length };

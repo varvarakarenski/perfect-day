@@ -50,10 +50,13 @@ function renderCard<T extends Listing>(
   }
   card.appendChild(tagList);
 
-  const { averageRating, reviewCount } = ratingStats(item.id);
-  const rounded = Math.round(averageRating);
-  const stars = "★".repeat(rounded) + "☆".repeat(5 - rounded);
-  card.appendChild(el("p", "listing-rating", `${stars} ${averageRating.toFixed(1)} (${reviewCount} reviews)`));
+  const rating = el("p", "listing-rating", "");
+  card.appendChild(rating);
+  ratingStats(item.id).then(({ averageRating, reviewCount }) => {
+    const rounded = Math.round(averageRating);
+    const stars = "★".repeat(rounded) + "☆".repeat(5 - rounded);
+    rating.textContent = `${stars} ${averageRating.toFixed(1)} (${reviewCount} reviews)`;
+  });
 
   const reviewBtn = el("button", "listing-review-btn", "Write a review");
   reviewBtn.type = "button";

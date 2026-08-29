@@ -15,7 +15,7 @@ const addForm = document.querySelector<HTMLFormElement>(".add-listing-form");
 if (addOverlay) bindOverlayDismiss(addOverlay);
 
 if (listContainer) {
-  const teams: Team[] = [...mockTeams, ...loadAdditions<Team>("teams")];
+  let teams: Team[] = [...mockTeams];
   let query = "";
 
   function render(): void {
@@ -30,6 +30,11 @@ if (listContainer) {
     );
   }
 
+  loadAdditions<Team>("teams").then((additions) => {
+    teams = [...mockTeams, ...additions];
+    render();
+  });
+
   searchInput?.addEventListener("input", () => {
     query = searchInput.value;
     render();
@@ -39,7 +44,7 @@ if (listContainer) {
     if (addOverlay) addOverlay.hidden = false;
   });
 
-  addForm?.addEventListener("submit", (event) => {
+  addForm?.addEventListener("submit", async (event) => {
     event.preventDefault();
     const data = new FormData(addForm);
 
@@ -57,7 +62,7 @@ if (listContainer) {
       logoUrl: String(data.get("logoUrl") ?? "").trim() || undefined,
     };
 
-    appendAddition("teams", team);
+    await appendAddition("teams", team);
     teams.push(team);
     addForm.reset();
     if (addOverlay) addOverlay.hidden = true;

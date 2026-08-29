@@ -3,8 +3,8 @@ import { resolve } from "node:path";
 
 const root = import.meta.dirname;
 
-export default defineConfig({
-  base: "/perfect-day/",
+export default defineConfig(({ command }) => ({
+  base: command === "build" ? "/perfect-day/" : "/",
   build: {
     rollupOptions: {
       input: {
@@ -17,4 +17,4 @@ export default defineConfig({
       },
     },
   },
-});
+}));

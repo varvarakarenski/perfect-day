@@ -15,7 +15,7 @@ const addForm = document.querySelector<HTMLFormElement>(".add-listing-form");
 if (addOverlay) bindOverlayDismiss(addOverlay);
 
 if (listContainer) {
-  const companies: Company[] = [...mockCompanies, ...loadAdditions<Company>("companies")];
+  let companies: Company[] = [...mockCompanies];
   let query = "";
 
   function render(): void {
@@ -23,6 +23,11 @@ if (listContainer) {
       openReviewPanel(company, () => render());
     });
   }
+
+  loadAdditions<Company>("companies").then((additions) => {
+    companies = [...mockCompanies, ...additions];
+    render();
+  });
 
   searchInput?.addEventListener("input", () => {
     query = searchInput.value;
@@ -33,7 +38,7 @@ if (listContainer) {
     if (addOverlay) addOverlay.hidden = false;
   });
 
-  addForm?.addEventListener("submit", (event) => {
+  addForm?.addEventListener("submit", async (event) => {
     event.preventDefault();
     const data = new FormData(addForm);
 
@@ -50,7 +55,7 @@ if (listContainer) {
       logoUrl: String(data.get("logoUrl") ?? "").trim() || undefined,
     };
 
-    appendAddition("companies", company);
+    await appendAddition("companies", company);
     companies.push(company);
     addForm.reset();
     if (addOverlay) addOverlay.hidden = true;

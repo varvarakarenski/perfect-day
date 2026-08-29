@@ -1,16 +1,11 @@
-const PREFIX = "perfectday:";
+import { collection, doc, getDocs, setDoc } from "firebase/firestore";
+import { db } from "./firebase";
 
-export function loadAdditions<T>(key: string): T[] {
-  try {
-    const raw = localStorage.getItem(PREFIX + key);
-    return raw ? (JSON.parse(raw) as T[]) : [];
-  } catch {
-    return [];
-  }
+export async function loadAdditions<T>(key: string): Promise<T[]> {
+  const snapshot = await getDocs(collection(db, key));
+  return snapshot.docs.map((document) => document.data() as T);
 }
 
-export function appendAddition<T>(key: string, item: T): T[] {
-  const items = [...loadAdditions<T>(key), item];
-  localStorage.setItem(PREFIX + key, JSON.stringify(items));
-  return items;
+export async function appendAddition<T extends { id: string }>(key: string, item: T): Promise<void> {
+  await setDoc(doc(db, key, item.id), item);
 }

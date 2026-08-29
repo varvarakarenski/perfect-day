@@ -17,14 +17,14 @@ function subtitleFor(type: DetailType, listing: Listing): string {
   return (listing as Team).affiliation;
 }
 
-function findListing(type: DetailType, id: string): Listing | undefined {
+async function findListing(type: DetailType, id: string): Promise<Listing | undefined> {
   if (type === "company") {
-    return [...mockCompanies, ...loadAdditions<Company>("companies")].find((item) => item.id === id);
+    return [...mockCompanies, ...(await loadAdditions<Company>("companies"))].find((item) => item.id === id);
   }
   if (type === "lab") {
-    return [...mockLabs, ...loadAdditions<Lab>("labs")].find((item) => item.id === id);
+    return [...mockLabs, ...(await loadAdditions<Lab>("labs"))].find((item) => item.id === id);
   }
-  return [...mockTeams, ...loadAdditions<Team>("teams")].find((item) => item.id === id);
+  return [...mockTeams, ...(await loadAdditions<Team>("teams"))].find((item) => item.id === id);
 }
 
 const params = new URLSearchParams(location.search);
@@ -50,12 +50,15 @@ backLink?.addEventListener("click", (event) => {
   history.back();
 });
 
-const listing = type && id ? findListing(type, id) : undefined;
+async function main(): Promise<void> {
+  const listing = type && id ? await findListing(type, id) : undefined;
 
-if (!listing || !type) {
-  if (contentEl) contentEl.hidden = true;
-  if (notFoundEl) notFoundEl.hidden = false;
-} else {
+  if (!listing || !type) {
+    if (contentEl) contentEl.hidden = true;
+    if (notFoundEl) notFoundEl.hidden = false;
+    return;
+  }
+
   if (contentEl) contentEl.hidden = false;
   if (notFoundEl) notFoundEl.hidden = true;
 
@@ -74,20 +77,20 @@ if (!listing || !type) {
     }
   }
 
-  function renderRating(): void {
-    if (!ratingEl || !listing) return;
-    const { averageRating, reviewCount } = ratingStats(listing.id);
+  async function renderRating(): Promise<void> {
+    if (!ratingEl) return;
+    const { averageRating, reviewCount } = await ratingStats(listing!.id);
     const rounded = Math.round(averageRating);
     const stars = "★".repeat(rounded) + "☆".repeat(5 - rounded);
     ratingEl.textContent = `${stars} ${averageRating.toFixed(1)} (${reviewCount} reviews)`;
   }
 
-  renderRating();
-  if (reviewsEl) renderReviewList(reviewsEl, reviewsFor(listing.id));
+  await renderRating();
+  if (reviewsEl) renderReviewList(reviewsEl, await reviewsFor(listing.id));
 
-  formEl?.addEventListener("submit", (event) => {
+  formEl?.addEventListener("submit", async (event) => {
     event.preventDefault();
-    if (!formEl || !listing) return;
+    if (!formEl) return;
 
     const data = new FormData(formEl);
     const review: Review = {
@@ -99,9 +102,11 @@ if (!listing || !type) {
       createdAt: new Date().toISOString(),
     };
 
-    appendAddition("reviews", review);
+    await appendAddition("reviews", review);
     formEl.reset();
-    if (reviewsEl) renderReviewList(reviewsEl, reviewsFor(listing.id));
-    renderRating();
+    if (reviewsEl) renderReviewList(reviewsEl, await reviewsFor(listing.id));
+    await renderRating();
   });
 }
+
+main();
