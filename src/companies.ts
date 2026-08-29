@@ -1,7 +1,6 @@
 import { mockCompanies } from "./data/companies";
 import { renderList } from "./renderList";
 import { filterListings } from "./search";
-import { openReviewPanel } from "./reviewPanel";
 import { appendAddition, loadAdditions } from "./storage";
 import { bindOverlayDismiss } from "./overlay";
 import type { Company } from "./types";
@@ -19,9 +18,7 @@ if (listContainer) {
   let query = "";
 
   function render(): void {
-    renderList(listContainer!, filterListings(companies, query), "company", (company) => company.industry, (company) => {
-      openReviewPanel(company, () => render());
-    });
+    renderList(listContainer!, filterListings(companies, query), "company", (company) => company.industry);
   }
 
   loadAdditions<Company>("companies").then((additions) => {

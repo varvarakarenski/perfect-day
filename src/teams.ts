@@ -1,7 +1,6 @@
 import { mockTeams } from "./data/teams";
 import { renderList } from "./renderList";
 import { filterListings } from "./search";
-import { openReviewPanel } from "./reviewPanel";
 import { appendAddition, loadAdditions } from "./storage";
 import { bindOverlayDismiss } from "./overlay";
 import type { Team } from "./types";
@@ -19,15 +18,7 @@ if (listContainer) {
   let query = "";
 
   function render(): void {
-    renderList(
-      listContainer!,
-      filterListings(teams, query),
-      "team",
-      (team) => (team.kind === "club" ? "Club" : "Team"),
-      (team) => {
-        openReviewPanel(team, () => render());
-      },
-    );
+    renderList(listContainer!, filterListings(teams, query), "team", (team) => (team.kind === "club" ? "Club" : "Team"));
   }
 
   loadAdditions<Team>("teams").then((additions) => {

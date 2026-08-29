@@ -86,15 +86,15 @@ async function main(): Promise<void> {
     ratingEl.textContent = `${stars} ${averageRating.toFixed(1)} (${reviewCount} reviews)`;
   }
 
-  await renderRating();
-  if (reviewsEl) renderReviewList(reviewsEl, await reviewsFor(listing.id));
-
   reviewBtn?.addEventListener("click", () => {
     openReviewPanel(listing, async () => {
       if (reviewsEl) renderReviewList(reviewsEl, await reviewsFor(listing.id));
       await renderRating();
     });
   });
+
+  await renderRating();
+  if (reviewsEl) renderReviewList(reviewsEl, await reviewsFor(listing.id));
 }
 
 main();

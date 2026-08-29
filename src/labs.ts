@@ -1,7 +1,6 @@
 import { mockLabs } from "./data/labs";
 import { renderList } from "./renderList";
 import { filterListings } from "./search";
-import { openReviewPanel } from "./reviewPanel";
 import { appendAddition, loadAdditions } from "./storage";
 import { bindOverlayDismiss } from "./overlay";
 import type { Lab } from "./types";
@@ -19,9 +18,7 @@ if (listContainer) {
   let query = "";
 
   function render(): void {
-    renderList(listContainer!, filterListings(labs, query), "lab", (lab) => `${lab.department}, ${lab.institution}`, (lab) => {
-      openReviewPanel(lab, () => render());
-    });
+    renderList(listContainer!, filterListings(labs, query), "lab", (lab) => `${lab.department}, ${lab.institution}`);
   }
 
   loadAdditions<Lab>("labs").then((additions) => {

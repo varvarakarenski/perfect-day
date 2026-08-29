@@ -23,8 +23,9 @@
     height: 10px;
     background-image:
         radial-gradient(circle 4px at 10px 5px, #D29B83 99%, transparent 100%),
-        radial-gradient(circle 4px at 30px 5px, #a5745f 99%, transparent 100%),
-        radial-gradient(circle 4px at 50px 5px, #a5745f 99%, transparent 100%);
+        radial-gradient(circle 4px at 30px 5px, #cfe0bb 99%, transparent 100%),
+        radial-gradient(circle 4px at 50px 5px, #8fc9a9 99%, transparent 100%),
+        radial-gradient(circle 4px at 70px 5px, #83bdd2 99%, transparent 100%);
     background-size: 80px 10px;
     background-repeat: repeat-x;
 }
@@ -91,8 +92,10 @@ h1 {
     position: relative;
     background-color: rgba(255, 255, 255, 0.9);
     backdrop-filter: blur(4px);
+    height: 100px;
     margin: 0;
     padding: 0 1.75rem;
+    box-sizing: border-box;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -117,12 +120,13 @@ h1 {
     position: absolute;
     left: 0;
     right: 0;
-    top: 0;
+    bottom: 0;
     height: 10px;
     background-image:
-        radial-gradient(circle 4px at 10px 5px, #D29B83 99%, transparent 80%),
-        radial-gradient(circle 4px at 30px 5px, #d29b83 99%, transparent 100%),
-        radial-gradient(circle 4px at 50px 5px, #a5745f 99%, transparent 100%);
+        radial-gradient(circle 4px at 10px 5px, #D29B83 99%, transparent 100%),
+        radial-gradient(circle 4px at 30px 5px, #cfe0bb 99%, transparent 100%),
+        radial-gradient(circle 4px at 50px 5px, #8fc9a9 99%, transparent 100%),
+        radial-gradient(circle 4px at 70px 5px, #83bdd2 99%, transparent 100%);
     background-size: 80px 10px;
     background-repeat: repeat-x;
 }
@@ -176,9 +180,9 @@ h1 {
 .listing-card {
     display: flex;
     flex-direction: row;
+    align-items: center;
     width: 100%;
-    justify-content: space-between;
-    gap: 0.5rem;
+    gap: 1.5rem;
     padding: 1.25rem;
     border-radius: 3px;
     border: 1px solid #e5e7eb;
@@ -196,6 +200,7 @@ h1 {
     display: flex;
     align-items: center;
     gap: 0.75rem;
+    flex: 0 0 240px;
 }
 
 .listing-logo {
@@ -232,6 +237,8 @@ h1 {
 }
 
 .listing-description {
+    flex: 1 1 auto;
+    min-width: 0;
     margin: 0;
     font-size: 0.9rem;
 }
@@ -239,7 +246,9 @@ h1 {
 .listing-tags {
     display: flex;
     flex-wrap: wrap;
+    align-content: center;
     gap: 0.4rem;
+    flex: 0 1 260px;
 }
 
 .listing-tag {
@@ -253,7 +262,9 @@ h1 {
 }
 
 .listing-rating {
-    margin: 0.25rem 0 0;
+    flex: 0 0 auto;
+    margin-left: auto;
+    white-space: nowrap;
     font-size: 0.85rem;
     color: #d29b83;
 }
@@ -327,7 +338,7 @@ h1 {
     height: 36px;
     padding: 0 14px;
     color: white;
-    background-color: #e5e7eb;
+    background-color: #d29b83;
     cursor: pointer;
 }
 
@@ -574,4 +585,153 @@ h1 {
 .detail-review-btn:hover {
     color: white;
     background-color: #a5745f;
+}
+
+.auth-page {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 3.5rem 1.5rem;
+    font-family: 'Lexend', sans-serif;
+}
+
+.auth-card {
+    width: 100%;
+    max-width: 380px;
+    box-sizing: border-box;
+    padding: 2rem;
+    border: 1px solid #e5e7eb;
+    border-radius: 3px;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+.auth-tabs {
+    display: flex;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.auth-tab {
+    flex: 1;
+    border: none;
+    background: none;
+    padding: 0.6rem 0;
+    font-family: 'Lexend', sans-serif;
+    font-size: 0.95rem;
+    color: #6b7280;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+}
+
+.auth-tab.active {
+    color: #1f2937;
+    border-bottom-color: #d29b83;
+}
+
+.auth-google-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.6rem;
+    width: 100%;
+    box-sizing: border-box;
+    height: 40px;
+    border: 1px solid #e5e7eb;
+    border-radius: 3px;
+    background-color: white;
+    font-family: 'Lexend', sans-serif;
+    font-size: 0.9rem;
+    color: #1f2937;
+    cursor: pointer;
+}
+
+.auth-google-btn:hover {
+    background-color: #f9fafb;
+}
+
+.auth-divider {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    color: #6b7280;
+    font-size: 0.8rem;
+}
+
+.auth-divider::before,
+.auth-divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background-color: #e5e7eb;
+}
+
+.auth-form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.auth-form label {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    font-size: 0.85rem;
+    color: #1f2937;
+}
+
+.auth-form input {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0.5rem;
+    border: 1px solid #e5e7eb;
+    border-radius: 4px;
+    font-family: 'Lexend', sans-serif;
+    font-size: 0.9rem;
+}
+
+.auth-error {
+    margin: 0;
+    font-size: 0.8rem;
+    color: #d1495b;
+}
+
+.auth-submit {
+    border: none;
+    border-radius: 3px;
+    height: 36px;
+    padding: 0 14px;
+    font-family: 'Lexend', sans-serif;
+    color: white;
+    background-color: #d29b83;
+    cursor: pointer;
+}
+
+.auth-submit:hover {
+    background-color: #a5745f;
+}
+
+.auth-submit:disabled {
+    background-color: #e5e7eb;
+    color: #6b7280;
+    cursor: default;
+}
+
+.auth-switch {
+    margin: 0;
+    text-align: center;
+    font-size: 0.85rem;
+    color: #6b7280;
+}
+
+.auth-switch-link {
+    border: none;
+    background: none;
+    padding: 0;
+    font-family: 'Lexend', sans-serif;
+    font-size: 0.85rem;
+    color: #d1495b;
+    text-decoration: underline;
+    cursor: pointer;
 }

@@ -14,6 +14,7 @@ export default defineConfig(({ command }) => ({
         clubsAndTeams: resolve(root, "clubs-and-teams.html"),
         detail: resolve(root, "detail.html"),
         about: resolve(root, "about.html"),
+        login: resolve(root, "login.html"),
       },
     },
   },
