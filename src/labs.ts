@@ -1,3 +1,4 @@
+import { onAuthStateChanged } from "firebase/auth";
 import { mockLabs } from "./data/labs";
 import { renderList } from "./renderList";
 import { filterListings } from "./search";
@@ -5,14 +6,22 @@ import { appendAddition, loadAdditions } from "./storage";
 import { bindOverlayDismiss } from "./overlay";
 import "./menubar";
 import type { Lab } from "./types";
+import { auth } from "./firebase";
+
+
 
 const listContainer = document.querySelector<HTMLDivElement>(".perfect-labs");
 const searchInput = document.querySelector<HTMLInputElement>(".search-input");
 const addToggle = document.querySelector<HTMLButtonElement>(".add-listing-toggle");
 const addOverlay = document.querySelector<HTMLDivElement>(".add-listing-overlay");
 const addForm = document.querySelector<HTMLFormElement>(".add-listing-form");
+const addSubmit = document.querySelector<HTMLButtonElement>(".add-listing-submit");
 
 if (addOverlay) bindOverlayDismiss(addOverlay);
+
+onAuthStateChanged(auth, (user) => {
+  if (addSubmit) addSubmit.textContent = user ? "Add lab" : "Sign in to add a lab";
+});
 
 if (listContainer) {
   let labs: Lab[] = [...mockLabs];

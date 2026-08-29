@@ -1,16 +1,23 @@
+import { onAuthStateChanged } from "firebase/auth";
 import type { Listing, Review } from "./types";
 import { appendAddition } from "./storage";
 import { bindOverlayDismiss } from "./overlay";
 import { bindStarRating } from "./starRating";
+import { auth } from "./firebase";
 
 const overlay = document.querySelector<HTMLDivElement>(".review-overlay");
 const form = overlay?.querySelector<HTMLFormElement>(".review-panel-form");
+const submitBtn = form?.querySelector<HTMLButtonElement>(".review-panel-submit");
 
 let currentListing: Listing | null = null;
 let currentOnSubmitted: ((review: Review) => void) | null = null;
 
 if (overlay) bindOverlayDismiss(overlay);
 if (form) bindStarRating(form);
+
+onAuthStateChanged(auth, (user) => {
+  if (submitBtn) submitBtn.textContent = user ? "Submit review" : "Sign in to submit a review";
+});
 
 form?.addEventListener("submit", async (event) => {
   event.preventDefault();
