@@ -37,9 +37,15 @@
 
             <div class="detail-reviews-section">
                 <h2>Reviews</h2>
+                <button type="button" class="detail-review-btn">Write a review</button>
                 <div class="review-panel-reviews detail-reviews"></div>
+            </div>
+        </div>
 
-                <form class="review-panel-form detail-review-form">
+        <div class="review-overlay overlay-backdrop" hidden>
+            <div class="overlay-panel">
+                <button type="button" class="overlay-close">✕</button>
+                <form class="review-panel-form">
                     <label>Your name <input name="reviewerName" required></label>
                     <label>Rating
                         <div class="star-rating">

@@ -23,9 +23,8 @@
     height: 10px;
     background-image:
         radial-gradient(circle 4px at 10px 5px, #D29B83 99%, transparent 100%),
-        radial-gradient(circle 4px at 30px 5px, rgb(218, 226, 195) 99%, transparent 100%),
-        radial-gradient(circle 4px at 50px 5px, #97d283 99%, transparent 100%),
-        radial-gradient(circle 4px at 70px 5px, #83bdd2 99%, transparent 100%);
+        radial-gradient(circle 4px at 30px 5px, #a5745f 99%, transparent 100%),
+        radial-gradient(circle 4px at 50px 5px, #a5745f 99%, transparent 100%);
     background-size: 80px 10px;
     background-repeat: repeat-x;
 }
@@ -93,7 +92,7 @@ h1 {
     background-color: rgba(255, 255, 255, 0.9);
     backdrop-filter: blur(4px);
     margin: 0;
-    padding: 50px;
+    padding: 0 1.75rem;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -113,7 +112,7 @@ h1 {
     color: #d1495b;
 }
 
-.footer::before {
+.footer::after {
     content: '';
     position: absolute;
     left: 0;
@@ -121,10 +120,9 @@ h1 {
     top: 0;
     height: 10px;
     background-image:
-        radial-gradient(circle 4px at 10px 5px, #D29B83 99%, transparent 100%),
-        radial-gradient(circle 4px at 30px 5px, rgb(218, 226, 195) 99%, transparent 100%),
-        radial-gradient(circle 4px at 50px 5px, #97d283 99%, transparent 100%),
-        radial-gradient(circle 4px at 70px 5px, #83bdd2 99%, transparent 100%);
+        radial-gradient(circle 4px at 10px 5px, #D29B83 99%, transparent 80%),
+        radial-gradient(circle 4px at 30px 5px, #d29b83 99%, transparent 100%),
+        radial-gradient(circle 4px at 50px 5px, #a5745f 99%, transparent 100%);
     background-size: 80px 10px;
     background-repeat: repeat-x;
 }
@@ -260,24 +258,6 @@ h1 {
     color: #d29b83;
 }
 
-.listing-review-btn {
-    align-self: flex-start;
-    margin-top: 0.5rem;
-    border: none;
-    border-radius: 3px;
-    height: 30px;
-    padding: 0 12px;
-    font-family: 'Lexend', sans-serif;
-    font-size: 0.8rem;
-    color: white;
-    background-color: #d29b83;
-    cursor: pointer;
-}
-
-.listing-review-btn:hover {
-    background-color: #a5745f;
-}
-
 .search-bar {
     display: flex;
     flex-direction: row;
@@ -395,10 +375,6 @@ h1 {
     font-size: 1.1rem;
     cursor: pointer;
     color: #6b7280;
-}
-
-.review-panel-heading {
-    margin: 0;
 }
 
 .review-panel-reviews {
@@ -580,4 +556,22 @@ h1 {
     justify-content: center;
     align-content: center;
     padding: 20px;
+}
+
+.detail-review-btn {
+    align-self: flex-start;
+    border: none;
+    border-radius: 3px;
+    height: 36px;
+    padding: 0 14px;
+    font-family: 'Lexend', sans-serif;
+    font-size: 0.9rem;
+    color: #d29b83;
+    background-color: white;
+    cursor: pointer;
+}
+
+.detail-review-btn:hover {
+    color: white;
+    background-color: #a5745f;
 }

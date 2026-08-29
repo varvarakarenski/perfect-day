@@ -1,11 +1,11 @@
 import { mockCompanies } from "./data/companies";
 import { mockLabs } from "./data/labs";
 import { mockTeams } from "./data/teams";
-import { loadAdditions, appendAddition } from "./storage";
+import { loadAdditions } from "./storage";
 import { ratingStats, reviewsFor, renderReviewList } from "./reviews";
-import { bindStarRating } from "./starRating";
+import { openReviewPanel } from "./reviewPanel";
 import { logoFor } from "./logo";
-import type { Company, Lab, Team, Listing, Review } from "./types";
+import type { Company, Lab, Team, Listing } from "./types";
 
 type DetailType = "company" | "lab" | "team";
 
@@ -44,14 +44,12 @@ const descriptionEl = document.querySelector<HTMLElement>(".detail-description")
 const tagsEl = document.querySelector<HTMLElement>(".detail-tags");
 const ratingEl = document.querySelector<HTMLElement>(".detail-rating");
 const reviewsEl = document.querySelector<HTMLElement>(".detail-reviews");
-const formEl = document.querySelector<HTMLFormElement>(".detail-review-form");
+const reviewBtn = document.querySelector<HTMLButtonElement>(".detail-review-btn");
 
 backLink?.addEventListener("click", (event) => {
   event.preventDefault();
   history.back();
 });
-
-if (formEl) bindStarRating(formEl);
 
 async function main(): Promise<void> {
   const listing = type && id ? await findListing(type, id) : undefined;
@@ -91,27 +89,11 @@ async function main(): Promise<void> {
   await renderRating();
   if (reviewsEl) renderReviewList(reviewsEl, await reviewsFor(listing.id));
 
-  formEl?.addEventListener("submit", async (event) => {
-    event.preventDefault();
-    if (!formEl) return;
-
-    const data = new FormData(formEl);
-    if (!data.get("rating")) return;
-
-    const review: Review = {
-      id: crypto.randomUUID(),
-      listingId: listing.id,
-      reviewerName: String(data.get("reviewerName") ?? "").trim(),
-      rating: Number(data.get("rating")),
-      text: String(data.get("text") ?? "").trim(),
-      createdAt: new Date().toISOString(),
-    };
-
-    await appendAddition("reviews", review);
-    formEl.reset();
-    formEl.querySelectorAll(".star.filled").forEach((star) => star.classList.remove("filled"));
-    if (reviewsEl) renderReviewList(reviewsEl, await reviewsFor(listing.id));
-    await renderRating();
+  reviewBtn?.addEventListener("click", () => {
+    openReviewPanel(listing, async () => {
+      if (reviewsEl) renderReviewList(reviewsEl, await reviewsFor(listing.id));
+      await renderRating();
+    });
   });
 }
 
