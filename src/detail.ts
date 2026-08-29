@@ -64,7 +64,7 @@ async function main(): Promise<void> {
   if (contentEl) contentEl.hidden = false;
   if (notFoundEl) notFoundEl.hidden = true;
 
-  if (logoEl) logoEl.src = logoFor(listing);
+  if (logoEl) logoEl.src = logoFor(listing, undefined, type);
   if (nameEl) nameEl.textContent = listing.name;
   if (subtitleEl) subtitleEl.textContent = `${subtitleFor(type, listing)} · ${listing.location}`;
   if (descriptionEl) descriptionEl.textContent = listing.description;

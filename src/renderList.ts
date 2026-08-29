@@ -13,11 +13,15 @@ function el<K extends keyof HTMLElementTagNameMap>(
   return node;
 }
 
+// Mirrors the .listing-card border-left rotation in style.css (nth-of-type 3n+1/3n+2/3n+3).
+const CARD_ACCENT_COLORS = ["#D29B83", "#8fc9a9", "#83bdd2"];
+
 function renderCard<T extends Listing>(
   item: T,
   detailType: string,
   subtitle: (item: T) => string,
   animateEntrance: boolean,
+  accentColor: string,
 ): HTMLElement {
   const card = el("div", animateEntrance ? "listing-card card-enter" : "listing-card");
 
@@ -25,7 +29,7 @@ function renderCard<T extends Listing>(
 
   const logo = document.createElement("img");
   logo.className = "listing-logo";
-  logo.src = logoFor(item);
+  logo.src = logoFor(item, accentColor, detailType);
   logo.alt = "";
   header.appendChild(logo);
 
@@ -80,7 +84,8 @@ export function renderList<T extends Listing>(
     return;
   }
 
-  for (const item of items) {
-    container.appendChild(renderCard(item, detailType, subtitle, animateEntrance));
-  }
+  items.forEach((item, index) => {
+    const accentColor = CARD_ACCENT_COLORS[index % CARD_ACCENT_COLORS.length];
+    container.appendChild(renderCard(item, detailType, subtitle, animateEntrance, accentColor));
+  });
 }
