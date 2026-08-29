@@ -13,8 +13,13 @@ function el<K extends keyof HTMLElementTagNameMap>(
   return node;
 }
 
-function renderCard<T extends Listing>(item: T, detailType: string, subtitle: (item: T) => string): HTMLElement {
-  const card = el("div", "listing-card");
+function renderCard<T extends Listing>(
+  item: T,
+  detailType: string,
+  subtitle: (item: T) => string,
+  animateEntrance: boolean,
+): HTMLElement {
+  const card = el("div", animateEntrance ? "listing-card card-enter" : "listing-card");
 
   const header = el("div", "listing-card-header");
 
@@ -56,6 +61,8 @@ function renderCard<T extends Listing>(item: T, detailType: string, subtitle: (i
   return card;
 }
 
+const animatedContainers = new WeakSet<HTMLElement>();
+
 export function renderList<T extends Listing>(
   container: HTMLElement,
   items: T[],
@@ -65,12 +72,15 @@ export function renderList<T extends Listing>(
   container.classList.add("listing-grid");
   container.innerHTML = "";
 
+  const animateEntrance = !animatedContainers.has(container);
+  animatedContainers.add(container);
+
   if (items.length === 0) {
     container.innerHTML = `<p class="listing-empty">No matches — try a different search.</p>`;
     return;
   }
 
   for (const item of items) {
-    container.appendChild(renderCard(item, detailType, subtitle));
+    container.appendChild(renderCard(item, detailType, subtitle, animateEntrance));
   }
 }

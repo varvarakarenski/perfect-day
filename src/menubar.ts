@@ -58,6 +58,16 @@ function renderLoggedIn(container: HTMLElement, user: User): void {
   container.appendChild(account);
 }
 
+function highlightActiveLink(): void {
+  const currentPage = location.pathname.split("/").pop() || "index.html";
+  document.querySelectorAll<HTMLAnchorElement>(".menubar > a[href]").forEach((link) => {
+    const linkPage = link.getAttribute("href")?.split("/").pop();
+    link.classList.toggle("active", linkPage === currentPage);
+  });
+}
+
+highlightActiveLink();
+
 const container = document.querySelector<HTMLDivElement>(".menubar-profile");
 
 if (container) {
