@@ -35,7 +35,11 @@
                     <label>Name <input name="name" required></label>
                     <label>Description <textarea name="description" required></textarea></label>
                     <label>Location <input name="location" required></label>
-                    <label>Tags <input name="tags" placeholder="comma-separated"></label>
+                    <div class="tag-picker">
+                        <span class="tag-picker-label">Tags</span>
+                        <div class="tag-picker-options"></div>
+                        <input type="hidden" name="tags">
+                    </div>
                     <label>Affiliation (school, organization) <input name="affiliation" required></label>
                     <label>Type
                         <select name="kind">

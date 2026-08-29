@@ -43,9 +43,26 @@ const nameEl = document.querySelector<HTMLElement>(".detail-name");
 const subtitleEl = document.querySelector<HTMLElement>(".detail-subtitle");
 const descriptionEl = document.querySelector<HTMLElement>(".detail-description");
 const tagsEl = document.querySelector<HTMLElement>(".detail-tags");
-const ratingEl = document.querySelector<HTMLElement>(".detail-rating");
+const summaryNumberEl = document.querySelector<HTMLElement>(".detail-summary-number");
+const summaryStarsEl = document.querySelector<HTMLElement>(".detail-summary-stars");
+const summaryCountEl = document.querySelector<HTMLElement>(".detail-summary-count");
+const summaryTagsEl = document.querySelector<HTMLElement>(".detail-summary-tags");
+const activitiesHeadingEl = document.querySelector<HTMLElement>(".detail-activities-heading");
+const activitiesTextEl = document.querySelector<HTMLElement>(".detail-activities-text");
 const reviewsEl = document.querySelector<HTMLElement>(".detail-reviews");
 const reviewBtn = document.querySelector<HTMLButtonElement>(".detail-review-btn");
+
+const defaultActivities: Record<DetailType, string> = {
+  company: "This company hasn't shared details about day-to-day activities yet — reviews below are the best window into what it's really like to work here.",
+  lab: "This lab hasn't shared details about day-to-day activities yet — reviews below are the best window into what it's really like to work here.",
+  team: "This group hasn't shared details about its activities yet — reviews below are the best window into what it's really like to be a member.",
+};
+
+const activitiesHeading: Record<DetailType, string> = {
+  company: "About this company",
+  lab: "About this lab",
+  team: "About this group",
+};
 
 backLink?.addEventListener("click", (event) => {
   event.preventDefault();
@@ -79,12 +96,27 @@ async function main(): Promise<void> {
     }
   }
 
+  if (activitiesHeadingEl) activitiesHeadingEl.textContent = activitiesHeading[type];
+  if (activitiesTextEl) activitiesTextEl.textContent = listing.activities ?? defaultActivities[type];
+
+  if (summaryTagsEl) {
+    summaryTagsEl.innerHTML = "";
+    for (const tag of listing.tags) {
+      const span = document.createElement("span");
+      span.className = "listing-tag";
+      span.textContent = tag;
+      summaryTagsEl.appendChild(span);
+    }
+  }
+
   async function renderRating(): Promise<void> {
-    if (!ratingEl) return;
     const { averageRating, reviewCount } = await ratingStats(listing!.id);
     const rounded = Math.round(averageRating);
-    const stars = "★".repeat(rounded) + "☆".repeat(5 - rounded);
-    ratingEl.textContent = `${stars} ${averageRating.toFixed(1)} (${reviewCount} reviews)`;
+    if (summaryNumberEl) summaryNumberEl.textContent = averageRating.toFixed(1);
+    if (summaryStarsEl) summaryStarsEl.textContent = "★".repeat(rounded) + "☆".repeat(5 - rounded);
+    if (summaryCountEl) {
+      summaryCountEl.textContent = reviewCount === 1 ? "1 review" : `${reviewCount} reviews`;
+    }
   }
 
   reviewBtn?.addEventListener("click", () => {

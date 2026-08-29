@@ -21,24 +21,47 @@
         <p class="detail-not-found" hidden>We couldn't find that listing.</p>
 
         <div class="detail-content" hidden>
-            <a href="#" class="detail-back">&larr; Back</a>
-
             <div class="detail-header">
-                <img class="detail-logo" alt="">
-                <div>
-                    <h1 class="detail-name"></h1>
-                    <p class="detail-subtitle"></p>
+                <div class="detail-header-inner">
+                    <a href="#" class="detail-back">&larr; Back</a>
+                    <div class="detail-header-row">
+                        <img class="detail-logo" alt="">
+                        <div>
+                            <h1 class="detail-name"></h1>
+                            <p class="detail-subtitle"></p>
+                        </div>
+                    </div>
                 </div>
             </div>
 
             <p class="detail-description"></p>
             <div class="detail-tags"></div>
-            <p class="detail-rating"></p>
 
             <div class="detail-reviews-section">
-                <h2>Reviews</h2>
-                <button type="button" class="detail-review-btn">Write a review</button>
-                <div class="review-panel-reviews detail-reviews"></div>
+                <div class="detail-summary-card">
+                    <div class="detail-summary-score">
+                        <span class="detail-summary-number"></span>
+                        <span class="detail-summary-outof">/ 5</span>
+                    </div>
+                    <div class="detail-summary-meta">
+                        <p class="detail-summary-stars"></p>
+                        <p class="detail-summary-count"></p>
+                        <div class="detail-summary-tags"></div>
+                    </div>
+                </div>
+
+                <div class="detail-activities">
+                    <h2 class="detail-activities-heading"></h2>
+                    <p class="detail-activities-text"></p>
+                </div>
+
+                <div class="detail-reviews-list">
+                    <div class="detail-reviews-list-header">
+                        <h2>Reviews</h2>
+                        <button type="button" class="detail-review-btn">Write a review</button>
+                    </div>
+                    <div class="review-panel-reviews detail-reviews"></div>
+                </div>
             </div>
         </div>
 

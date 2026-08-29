@@ -4,6 +4,7 @@ import { renderList } from "./renderList";
 import { filterListings } from "./search";
 import { appendAddition, loadAdditions } from "./storage";
 import { bindOverlayDismiss } from "./overlay";
+import { initTagPicker, uniqueTags } from "./tagPicker";
 import "./menubar";
 import type { Lab } from "./types";
 import { auth } from "./firebase";
@@ -16,8 +17,10 @@ const addToggle = document.querySelector<HTMLButtonElement>(".add-listing-toggle
 const addOverlay = document.querySelector<HTMLDivElement>(".add-listing-overlay");
 const addForm = document.querySelector<HTMLFormElement>(".add-listing-form");
 const addSubmit = document.querySelector<HTMLButtonElement>(".add-listing-submit");
+const tagPickerEl = document.querySelector<HTMLDivElement>(".tag-picker");
 
 if (addOverlay) bindOverlayDismiss(addOverlay);
+const tagPicker = tagPickerEl ? initTagPicker(tagPickerEl, uniqueTags(mockLabs)) : null;
 
 onAuthStateChanged(auth, (user) => {
   if (addSubmit) addSubmit.textContent = user ? "Add lab" : "Sign in to add a lab";
@@ -72,6 +75,7 @@ if (listContainer) {
     await appendAddition("labs", lab);
     labs.push(lab);
     addForm.reset();
+    tagPicker?.reset();
     if (addOverlay) addOverlay.hidden = true;
     render();
   });

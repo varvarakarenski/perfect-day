@@ -37,7 +37,11 @@
                     <label>Department <input name="department" required></label>
                     <label>Description <textarea name="description" required></textarea></label>
                     <label>Location <input name="location" required></label>
-                    <label>Tags <input name="tags" placeholder="comma-separated"></label>
+                    <div class="tag-picker">
+                        <span class="tag-picker-label">Tags</span>
+                        <div class="tag-picker-options"></div>
+                        <input type="hidden" name="tags">
+                    </div>
                     <label>Logo URL (optional) <input name="logoUrl" type="url" placeholder="https://..."></label>
                     <button type="submit" class="add-listing-submit">Add lab</button>
                 </form>

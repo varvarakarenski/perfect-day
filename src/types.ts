@@ -5,6 +5,7 @@ export interface Listing {
   location: string;
   tags: string[];
   logoUrl?: string;
+  activities?: string;
 }
 
 export interface Company extends Listing {

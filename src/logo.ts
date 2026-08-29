@@ -1,4 +1,7 @@
 import type { Listing } from "./types";
+import companyIconSvg from "../company.svg?raw";
+import labIconSvg from "../lab.svg?raw";
+import teamIconSvg from "../club.svg?raw";
 
 function hashHue(input: string): number {
   let hash = 0;
@@ -8,22 +11,27 @@ function hashHue(input: string): number {
   return hash % 360;
 }
 
-const ICON_PATHS: Record<string, string> = {
-  company: `<rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>`,
-  lab: `<path d="M9 3h6"/><path d="M10 3v6.5a1 1 0 0 1-.2.6L5 17a2 2 0 0 0 1.6 3.2h10.8A2 2 0 0 0 19 17l-4.8-6.9a1 1 0 0 1-.2-.6V3"/><path d="M6.5 14h11"/>`,
-  team: `<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>`,
+// Strip the outer <svg> wrapper so the path data can be re-embedded with our own fill.
+function svgBody(markup: string): string {
+  return markup.replace(/^[\s\S]*?<svg[^>]*>/, "").replace(/<\/svg>\s*$/, "");
+}
+
+const ICON_BODIES: Record<string, string> = {
+  company: svgBody(companyIconSvg),
+  lab: svgBody(labIconSvg),
+  team: svgBody(teamIconSvg),
 };
 
 export function logoFor(item: Listing, accentColor?: string, category?: string): string {
   if (item.logoUrl) return item.logoUrl;
 
   const fill = accentColor ?? `hsl(${hashHue(item.id)},55%,55%)`;
-  const icon = category ? ICON_PATHS[category] : undefined;
+  const iconBody = category ? ICON_BODIES[category] : undefined;
   const svg = [
     `<svg xmlns="http://www.w3.org/2000/svg" width="80" height="80">`,
     `<rect width="80" height="80" rx="12" fill="${fill}"/>`,
-    icon
-      ? `<svg x="20" y="20" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${icon}</svg>`
+    iconBody
+      ? `<svg x="18" y="18" width="44" height="44" viewBox="0 -960 960 960" fill="white">${iconBody}</svg>`
       : "",
     `</svg>`,
   ].join("");
