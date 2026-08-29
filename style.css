@@ -535,6 +535,8 @@ h1 {
 }
 
 .detail-reviews-section {
+    background-color: #D29B83;
+    color: white;
     margin-top: 1.5rem;
     padding-top: 1.5rem;
     border-top: 1px solid #e5e7eb;
