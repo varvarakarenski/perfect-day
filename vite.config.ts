@@ -4,6 +4,7 @@ import { resolve } from "node:path";
 const root = import.meta.dirname;
 
 export default defineConfig({
+  base: "/perfect-day/",
   build: {
     rollupOptions: {
       input: {
@@ -12,6 +13,7 @@ export default defineConfig({
         labs: resolve(root, "labs.html"),
         clubsAndTeams: resolve(root, "clubs-and-teams.html"),
         detail: resolve(root, "detail.html"),
+        about: resolve(root, "about.html"),
       },
     },
   },

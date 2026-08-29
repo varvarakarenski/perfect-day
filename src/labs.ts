@@ -19,7 +19,7 @@ if (listContainer) {
   let query = "";
 
   function render(): void {
-    renderList(listContainer!, filterListings(labs, query), "lab", (lab) => lab.institution, (lab) => {
+    renderList(listContainer!, filterListings(labs, query), "lab", (lab) => `${lab.department}, ${lab.institution}`, (lab) => {
       openReviewPanel(lab, () => render());
     });
   }
@@ -47,6 +47,8 @@ if (listContainer) {
         .map((tag) => tag.trim())
         .filter(Boolean),
       institution: String(data.get("institution") ?? "").trim(),
+      department: String(data.get("department") ?? "").trim(),
+      logoUrl: String(data.get("logoUrl") ?? "").trim() || undefined,
     };
 
     appendAddition("labs", lab);

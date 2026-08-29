@@ -47,6 +47,7 @@ if (listContainer) {
         .map((tag) => tag.trim())
         .filter(Boolean),
       industry: String(data.get("industry") ?? "").trim(),
+      logoUrl: String(data.get("logoUrl") ?? "").trim() || undefined,
     };
 
     appendAddition("companies", company);

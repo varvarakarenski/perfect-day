@@ -7,6 +7,7 @@ export const mockLabs: Lab[] = [
     description: "Computer vision research for assistive robotics.",
     location: "Berkeley, CA",
     institution: "UC Berkeley",
+    department: "Electrical Engineering & Computer Sciences",
     tags: ["supportive PI", "conference funding"],
   },
   {
@@ -15,6 +16,7 @@ export const mockLabs: Lab[] = [
     description: "Experimental condensed matter physics lab.",
     location: "Pittsburgh, PA",
     institution: "Carnegie Mellon University",
+    department: "Physics",
     tags: ["heavy workload", "good mentorship"],
   },
   {
@@ -23,6 +25,7 @@ export const mockLabs: Lab[] = [
     description: "Studies coral reef adaptation using genomic sequencing.",
     location: "Honolulu, HI",
     institution: "University of Hawaii",
+    department: "Oceanography",
     tags: ["fieldwork heavy", "flexible schedule"],
   },
   {
@@ -31,6 +34,7 @@ export const mockLabs: Lab[] = [
     description: "Computational neuroscience research on motor control.",
     location: "Boston, MA",
     institution: "MIT",
+    department: "Brain and Cognitive Sciences",
     tags: ["competitive", "well-funded"],
   },
 ];

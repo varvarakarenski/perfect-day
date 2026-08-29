@@ -13,6 +13,7 @@ export interface Company extends Listing {
 
 export interface Lab extends Listing {
   institution: string;
+  department: string;
 }
 
 export interface Team extends Listing {

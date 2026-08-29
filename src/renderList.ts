@@ -21,15 +21,27 @@ function renderCard<T extends Listing>(
 ): HTMLElement {
   const card = el("div", "listing-card");
 
+  const header = el("div", "listing-card-header");
+
+  const logo = document.createElement("img");
+  logo.className = "listing-logo";
+  logo.src = logoFor(item);
+  logo.alt = "";
+  header.appendChild(logo);
+
+  const nameBlock = el("div", "listing-name-block");
   const name = el("h3", "listing-name");
   const nameLink = document.createElement("a");
   nameLink.className = "listing-name-link";
   nameLink.href = `detail.html?type=${detailType}&id=${encodeURIComponent(item.id)}`;
   nameLink.textContent = item.name;
   name.appendChild(nameLink);
-  card.appendChild(name);
+  nameBlock.appendChild(name);
+  nameBlock.appendChild(el("p", "listing-subtitle", `${subtitle(item)} · ${item.location}`));
+  header.appendChild(nameBlock);
 
-  card.appendChild(el("p", "listing-subtitle", `${subtitle(item)} · ${item.location}`));
+  card.appendChild(header);
+
   card.appendChild(el("p", "listing-description", item.description));
 
   const tagList = el("div", "listing-tags");

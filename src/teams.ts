@@ -54,6 +54,7 @@ if (listContainer) {
         .filter(Boolean),
       affiliation: String(data.get("affiliation") ?? "").trim(),
       kind: data.get("kind") === "team" ? "team" : "club",
+      logoUrl: String(data.get("logoUrl") ?? "").trim() || undefined,
     };
 
     appendAddition("teams", team);

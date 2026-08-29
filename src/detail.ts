@@ -3,13 +3,17 @@ import { mockLabs } from "./data/labs";
 import { mockTeams } from "./data/teams";
 import { loadAdditions, appendAddition } from "./storage";
 import { ratingStats, reviewsFor, renderReviewList } from "./reviews";
+import { logoFor } from "./logo";
 import type { Company, Lab, Team, Listing, Review } from "./types";
 
 type DetailType = "company" | "lab" | "team";
 
 function subtitleFor(type: DetailType, listing: Listing): string {
   if (type === "company") return (listing as Company).industry;
-  if (type === "lab") return (listing as Lab).institution;
+  if (type === "lab") {
+    const lab = listing as Lab;
+    return `${lab.department}, ${lab.institution}`;
+  }
   return (listing as Team).affiliation;
 }
 
@@ -32,6 +36,7 @@ const type: DetailType | null =
 const contentEl = document.querySelector<HTMLElement>(".detail-content");
 const notFoundEl = document.querySelector<HTMLElement>(".detail-not-found");
 const backLink = document.querySelector<HTMLAnchorElement>(".detail-back");
+const logoEl = document.querySelector<HTMLImageElement>(".detail-logo");
 const nameEl = document.querySelector<HTMLElement>(".detail-name");
 const subtitleEl = document.querySelector<HTMLElement>(".detail-subtitle");
 const descriptionEl = document.querySelector<HTMLElement>(".detail-description");
@@ -54,6 +59,7 @@ if (!listing || !type) {
   if (contentEl) contentEl.hidden = false;
   if (notFoundEl) notFoundEl.hidden = true;
 
+  if (logoEl) logoEl.src = logoFor(listing);
   if (nameEl) nameEl.textContent = listing.name;
   if (subtitleEl) subtitleEl.textContent = `${subtitleFor(type, listing)} · ${listing.location}`;
   if (descriptionEl) descriptionEl.textContent = listing.description;
